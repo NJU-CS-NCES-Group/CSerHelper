@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/checkBox"
         android:layout_marginTop="34dp"
-        android:layout_below="@+id/editText2"
+        android:layout_below="@+id/editText_pwd"
         android:layout_alignRight="@+id/button"
         android:layout_alignEnd="@+id/button" />
 
@@ -47,28 +47,29 @@
         android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
         android:layout_below="@+id/checkBox"
-        android:layout_alignLeft="@+id/editText2"
-        android:layout_alignStart="@+id/editText2" />
+        android:layout_alignLeft="@+id/editText_pwd"
+        android:layout_alignStart="@+id/editText_pwd" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="number"
-        android:id="@+id/editText"
+        android:id="@+id/editText_no"
         android:layout_alignBaseline="@+id/textView_no"
         android:layout_alignBottom="@+id/textView_no"
-        android:layout_alignLeft="@+id/editText2"
-        android:layout_alignStart="@+id/editText2" />
+        android:layout_alignLeft="@+id/editText_pwd"
+        android:layout_alignStart="@+id/editText_pwd" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
-        android:id="@+id/editText2"
+        android:id="@+id/editText_pwd"
         android:layout_marginLeft="30dp"
         android:layout_marginStart="30dp"
         android:layout_below="@+id/textView_no"
         android:layout_toRightOf="@+id/textView_pwd" />
 
+    <include layout="@layout/title"/>
 
 </RelativeLayout>
