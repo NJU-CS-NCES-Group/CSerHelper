@@ -1,5 +1,6 @@
 package com.example.cserhelper;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             default:
                 break;
         }
-
+        Intent intent=new Intent(MainActivity.this,MainFuncActivity.class);
+        this.startActivity(intent);
     }
 }
