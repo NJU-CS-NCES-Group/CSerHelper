@@ -36,7 +36,7 @@ public class ClasscheckFragment extends Fragment {
      * @return A new instance of fragment ClasscheckFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ClasscheckFragment newInstance(String param1) {
+    public static ClasscheckFragment newInstan ce(String param1) {
         ClasscheckFragment fragment = new ClasscheckFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
