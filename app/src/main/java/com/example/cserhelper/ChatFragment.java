@@ -2,6 +2,7 @@ package com.example.cserhelper;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 
@@ -24,7 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class ChatFragment extends Fragment {
+public class ChatFragment extends Fragment implements View.OnClickListener{
 
     private SwipeMenuListView listView;
     private ArrayList<String> data;
@@ -55,6 +57,8 @@ public class ChatFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_chat, container, false);
         listView=(SwipeMenuListView) view.findViewById(R.id.listView);
+        Button button=(Button) view.findViewById(R.id.homeButton);
+        button.setOnClickListener(this);
         data=new ArrayList<String>();
         for(int i=0;i<5;i++)
         {
@@ -91,4 +95,12 @@ public class ChatFragment extends Fragment {
     }
 
 
+    @Override
+    public void onClick(View v) {
+        int id=v.getId();
+        switch (id){
+            case R.id.homeButton:
+                startActivity(new Intent(this.getActivity(),PersonalCenterActivity.class));
+        }
+    }
 }

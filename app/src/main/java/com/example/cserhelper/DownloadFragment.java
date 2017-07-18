@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class DownloadFragment extends Fragment {
+public class DownloadFragment extends Fragment implements View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -74,13 +74,18 @@ public class DownloadFragment extends Fragment {
         listView = (ListView) view.findViewById(R.id.list_view);
         adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, dataList);
         listView.setAdapter(adapter);
+        Button button=(Button)view.findViewById(R.id.homeButton);
+        button.setOnClickListener(this);
         return view;
         //return inflater.inflate(R.layout.fragment_download, container, false);
     }
-
+    
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onClick(View v) {
+        int id=v.getId();
+        switch (id){
+            case R.id.homeButton:
+                startActivity(new Intent(this.getActivity(),PersonalCenterActivity.class));
+        }
     }
-
 }
