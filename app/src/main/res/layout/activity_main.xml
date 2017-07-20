@@ -31,22 +31,22 @@
         android:text="Remember me"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/checkBox"
+        android:id="@+id/remember_pass"
         android:layout_marginTop="34dp"
         android:layout_below="@+id/editText_pwd"
-        android:layout_alignRight="@+id/button"
-        android:layout_alignEnd="@+id/button" />
+        android:layout_alignRight="@+id/login"
+        android:layout_alignEnd="@+id/login" />
 
     <Button
         android:text="Login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:id="@+id/button"
+        android:id="@+id/login"
         android:visibility="visible"
         android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
-        android:layout_below="@+id/checkBox"
+        android:layout_below="@+id/remember_pass"
         android:layout_alignLeft="@+id/editText_pwd"
         android:layout_alignStart="@+id/editText_pwd" />
 
