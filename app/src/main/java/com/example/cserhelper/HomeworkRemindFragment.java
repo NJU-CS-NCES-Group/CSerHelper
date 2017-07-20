@@ -13,20 +13,13 @@ import android.widget.Button;
 
 public class HomeworkRemindFragment extends Fragment implements View.OnClickListener
 {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
 
     public HomeworkRemindFragment() {
-        // Required empty public constructor
     }
     public static HomeworkRemindFragment newInstance(String param1) {
         HomeworkRemindFragment fragment = new HomeworkRemindFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
         fragment.setArguments(args);
         return fragment;
     }
@@ -34,9 +27,6 @@ public class HomeworkRemindFragment extends Fragment implements View.OnClickList
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-        }
     }
 
     @Override

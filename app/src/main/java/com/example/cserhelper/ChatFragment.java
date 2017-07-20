@@ -60,7 +60,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
         Button button=(Button) view.findViewById(R.id.homeButton);
         button.setOnClickListener(this);
         data=new ArrayList<String>();
-        for(int i=0;i<5;i++)
+        for(int i=0;i<10;i++)
         {
             data.add("ceshi"+i);
         }
