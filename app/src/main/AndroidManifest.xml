@@ -16,7 +16,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainFuncActivity" />
-        <activity android:name=".PersonalCenterActivity"></activity>
+        <activity android:name=".PersonalCenterActivity" />
+        <activity android:name=".ScanActivity"></activity>
     </application>
 
 </manifest>
