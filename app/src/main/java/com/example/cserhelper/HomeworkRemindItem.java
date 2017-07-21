@@ -1,6 +1,7 @@
 package com.example.cserhelper;
 
 
+import java.text.DateFormat;
 
 /**
  * Created by lightning on 2017/7/20.
@@ -23,21 +24,12 @@ public class HomeworkRemindItem {
 
     public String getFormatRemindTime()
     {
-        String d,h,m;
-        m = (RemindTime % 60)+"";
-        h = ((RemindTime / 60) % 24) + "";
-        d = (RemindTime / 60 / 24) + "";
-        return d+"d"+h+"h"+m+"m";
+        return (String) android.text.format.DateFormat.format("mm-dd hh:mm",getRemindTime());
     }
 
     public String getFormatSubmitTime()
     {
-        String d,h,m,s;
-        s = (RemindTime % 60) + "";
-        m = (RemindTime / 60 % 60) + "";
-        h = ((RemindTime / 60 / 60) % 24) + "";
-        d = (RemindTime / 60 / 60 / 24) + "";
-        return d+"d"+h+"h"+m+"m"+s+"s";
+        return (String) android.text.format.DateFormat.format("mm-dd hh:mm",getRemindTime());
     }
 
     public String getCourseName() {

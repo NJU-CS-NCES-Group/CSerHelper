@@ -9,6 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.baoyz.swipemenulistview.BaseSwipListAdapter;
+
 import java.util.List;
 
 
@@ -16,7 +18,7 @@ import java.util.List;
  * Created by lightning on 2017/7/20.
  */
 
-public class HomeworkRemindAdapter extends BaseAdapter {
+public class HomeworkRemindAdapter extends BaseSwipListAdapter {
     private List<HomeworkRemindItem> list;
     LayoutInflater inflater;
 
@@ -61,7 +63,7 @@ public class HomeworkRemindAdapter extends BaseAdapter {
         viewHolder.tvCourseName.setText(list.get(position).getCourseName());
         viewHolder.tvHomeworkName.setText(list.get(position).getHomeworkName());
         viewHolder.tvRemindTime.setText(list.get(position).getFormatRemindTime());
-        viewHolder.tvRemindTime.setText(list.get(position).getFormatSubmitTime());
+        viewHolder.tvSubmitTime.setText(list.get(position).getFormatSubmitTime());
         viewHolder.enable.setChecked(list.get(position).isEnable());
         return convertView;
     }

@@ -40,13 +40,13 @@ public class PersonalCenterActivity extends AppCompatActivity implements
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
         /*这里是底部导航栏的默认Fragment*/
-        transaction.replace(R.id.layFrame,MyCourceFragment.newInstance("我的课程"));
+        transaction.replace(R.id.layFrame, MyCourseFragment.newInstance("我的课程"));
         transaction.commit();
     }
     public ArrayList<Fragment> getFragments() {
         ArrayList<Fragment> fragments = new ArrayList<>();
         //TODO：这里是底部导航栏的Fragment，需要分别去完成对应功能
-        fragments.add(MyCourceFragment.newInstance("我的课程"));
+        fragments.add(MyCourseFragment.newInstance("我的课程"));
         fragments.add(MyHomeworkFragment.newInstance("我的作业"));
         fragments.add(HomeworkRemindFragment.newInstance("作业提醒"));
         fragments.add(ContactUsFragment.newInstance("联系我们"));

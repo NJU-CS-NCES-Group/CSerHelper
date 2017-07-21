@@ -1,7 +1,5 @@
 package com.example.cserhelper;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-public class MyCourceFragment extends Fragment implements View.OnClickListener{
+public class MyCourseFragment extends Fragment implements View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -19,12 +17,12 @@ public class MyCourceFragment extends Fragment implements View.OnClickListener{
     // TODO: Rename and change types of parameters
     private String mParam1;
 
-    public MyCourceFragment() {
+    public MyCourseFragment() {
         // Required empty public constructor
     }
 
-    public static MyCourceFragment newInstance(String param1) {
-        MyCourceFragment fragment = new MyCourceFragment();
+    public static MyCourseFragment newInstance(String param1) {
+        MyCourseFragment fragment = new MyCourseFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         fragment.setArguments(args);

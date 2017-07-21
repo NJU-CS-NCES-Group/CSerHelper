@@ -46,9 +46,11 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
+        data=new ArrayList<String>();
+        for(int i=0;i<15;i++)
+        {
+            data.add("ceshi"+i);
+        }
     }
 
     @Override
@@ -59,11 +61,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
         listView=(SwipeMenuListView) view.findViewById(R.id.listView);
         Button button=(Button) view.findViewById(R.id.homeButton);
         button.setOnClickListener(this);
-        data=new ArrayList<String>();
-        for(int i=0;i<10;i++)
-        {
-            data.add("ceshi"+i);
-        }
+
         adapter=new ArrayAdapter<String>(this.getActivity(),android.R.layout.simple_list_item_1,data);
         listView.setAdapter(adapter);
         SwipeMenuCreator creator = new SwipeMenuCreator() {
@@ -91,6 +89,22 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
 
         // set creator
         listView.setMenuCreator(creator);
+        listView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+                switch (index)
+                {
+                    case 0:
+                        data.remove(position);
+                        //adapter.notifyDataSetChanged();
+                        int t=listView.getFirstVisiblePosition();
+                        if(t!=data.size()-1) t++;
+                        listView.setAdapter(adapter);
+                        listView.setSelection(t);
+                }
+                return false;
+            }
+        });
         return view;
     }
 
