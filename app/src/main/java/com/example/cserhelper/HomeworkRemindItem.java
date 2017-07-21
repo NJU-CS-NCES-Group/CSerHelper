@@ -9,8 +9,8 @@ package com.example.cserhelper;
 public class HomeworkRemindItem {
     private String CourseName;
     private String HomeworkName;
-    private long RemindTime;
-    private long SubmitTime;
+    private long RemindTime;   //以分钟数记录，精确到分钟
+    private long SubmitTime;   //以秒数记录，精确到秒
     private boolean Enable;
 
     public HomeworkRemindItem(String courseName, String homeworkName, long remindTime, long submitTime, boolean enable) {
@@ -19,6 +19,25 @@ public class HomeworkRemindItem {
         RemindTime = remindTime;
         SubmitTime = submitTime;
         Enable = enable;
+    }
+
+    public String getFormatRemindTime()
+    {
+        String d,h,m;
+        m = (RemindTime % 60)+"";
+        h = ((RemindTime / 60) % 24) + "";
+        d = (RemindTime / 60 / 24) + "";
+        return d+"d"+h+"h"+m+"m";
+    }
+
+    public String getFormatSubmitTime()
+    {
+        String d,h,m,s;
+        s = (RemindTime % 60) + "";
+        m = (RemindTime / 60 % 60) + "";
+        h = ((RemindTime / 60 / 60) % 24) + "";
+        d = (RemindTime / 60 / 60 / 24) + "";
+        return d+"d"+h+"h"+m+"m"+s+"s";
     }
 
     public String getCourseName() {
