@@ -1,15 +1,17 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_instantmsg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.cserhelper.ChatFragment">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:showDividers="middle"
         android:divider="@layout/separator"
-        android:dividerPadding="2dp">
+        android:dividerPadding="2dp"
+        android:orientation="vertical"
+        android:showDividers="middle">
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
@@ -22,19 +24,17 @@
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
                 android:text="Back"
-                android:textColor="#fff"
-                />
+                android:textColor="#fff" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:textAlignment="center"
                 android:text="@string/app_name"
+                android:textAlignment="center"
                 android:textColor="#00f"
-                android:textSize="24sp"
-                />
+                android:textSize="24sp" />
 
             <Button
                 android:id="@+id/homeButton"
@@ -42,8 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:text="Home"
-                />
+                android:text="Home" />
 
         </LinearLayout>
 
@@ -56,57 +55,84 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:textAlignment="center"
-                />
+                android:textAlignment="center" />
 
             <Button
-                android:id="@+id/scan_code"
+                android:id="@+id/bbs_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:text="扫一扫"
-                />
+                android:text="讨论区" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:textAlignment="center"
-                />
+                android:textAlignment="center" />
 
             <Button
-                android:id="@+id/take_photo"
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:text="点点头"
-                />
+                android:text="即时聊" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:textAlignment="center"
-                />
+                android:textAlignment="center" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="#d8e0e8"
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/picture"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/msg_recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                />
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/input_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Type something here"
+                    android:maxLines="2" />
+
+                <Button
+                    android:id="@+id/send"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Send" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="64dp"
+                    />
+            </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>
-
 
 
 </FrameLayout>

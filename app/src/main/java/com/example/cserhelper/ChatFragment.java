@@ -8,6 +8,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,11 +48,14 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         data=new ArrayList<String>();
         for(int i=0;i<15;i++)
         {
             data.add("ceshi"+i);
         }
+
+        //replaceFragment(new ChatFragment());
     }
 
     @Override
@@ -58,9 +63,13 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_chat, container, false);
-        listView=(SwipeMenuListView) view.findViewById(R.id.listView);
-        Button button=(Button) view.findViewById(R.id.homeButton);
+        listView = (SwipeMenuListView) view.findViewById(R.id.listView);
+        Button button = (Button) view.findViewById(R.id.homeButton);
         button.setOnClickListener(this);
+
+        Button chatButton = (Button) view.findViewById(R.id.chat_button);
+        chatButton.setOnClickListener(this);
+        //replaceFragment(new ChatFragment());
 
         adapter=new ArrayAdapter<String>(this.getActivity(),android.R.layout.simple_list_item_1,data);
         listView.setAdapter(adapter);
@@ -111,10 +120,23 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        int id=v.getId();
+        int id = v.getId();
         switch (id){
             case R.id.homeButton:
-                startActivity(new Intent(this.getActivity(),PersonalCenterActivity.class));
+                startActivity(new Intent(this.getActivity(), PersonalCenterActivity.class));
+                break;
+            case R.id.chat_button:
+                replaceFragment(new InstantmsgFragment());
+                break;
         }
     }
+
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.fragment_chat, fragment);
+        //transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
 }

@@ -5,7 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/CSerHelper.iml" filepath="$PROJECT_DIR$/CSerHelper.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/zbarcode/zbarcode.iml" filepath="$PROJECT_DIR$/zbarcode/zbarcode.iml" />
-      <module fileurl="file://$PROJECT_DIR$/zbarcode/zbarcode.iml" filepath="$PROJECT_DIR$/zbarcode/zbarcode.iml" />
     </modules>
   </component>
 </project>
