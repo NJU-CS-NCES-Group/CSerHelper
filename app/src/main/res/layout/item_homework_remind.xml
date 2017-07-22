@@ -9,7 +9,7 @@
         android:padding="3dp"
         android:text="课程名称"
         android:textSize="20sp"
-        android:layout_weight="2"/>
+        android:layout_weight="1.5"/>
     <View
         android:layout_width="1.5dip"
         android:layout_height="28dp"
@@ -21,7 +21,7 @@
         android:padding="3dp"
         android:text="作业名称"
         android:textSize="20sp"
-        android:layout_weight="2"/>
+        android:layout_weight="1.5"/>
     <View
         android:layout_width="1.5dip"
         android:layout_height="28dp"
@@ -31,7 +31,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:padding="3dp"
-        android:text="提前提醒时间"
+        android:text="提醒时间"
         android:textSize="20sp"
         android:layout_weight="1"/>
     <View
