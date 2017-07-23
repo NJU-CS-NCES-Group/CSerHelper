@@ -27,7 +27,7 @@ public class MainFuncActivity extends AppCompatActivity implements
         /*TODO: 这里是底部导航栏的背景，需要在res/color.xml对每个颜色的ID以及图片进行设置*/
         bottomNavigationBar.addItem(new BottomNavigationItem(R.mipmap.ic_message, "消息提示").setActiveColorResource(R.color.colorPrimary))
                 .addItem(new BottomNavigationItem(R.mipmap.ic_talk, "讨论交流").setActiveColorResource(R.color.colorPrimary))
-                .addItem(new BottomNavigationItem(R.mipmap.ic_person, "课堂考勤").setActiveColorResource(R.color.colorPrimary))
+                .addItem(new BottomNavigationItem(R.mipmap.ic_location, "课堂考勤").setActiveColorResource(R.color.colorPrimary))
                 .addItem(new BottomNavigationItem(R.mipmap.ic_download, "上传下载").setActiveColorResource(R.color.colorPrimary))
                 .setFirstSelectedPosition(0)
                 .initialise();

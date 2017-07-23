@@ -89,8 +89,9 @@ public class InstantmsgFragment extends Fragment implements View.OnClickListener
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.fragment_instantmsg, fragment);
-        //transaction.addToBackStack(null);
+        transaction.hide(this);
+        transaction.add(R.id.fragment_instantmsg, fragment);
+        //transaction.replace(R.id.fragment_instantmsg, fragment);
         transaction.commit();
     }
 }

@@ -135,8 +135,6 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.fragment_chat, fragment);
-        //transaction.addToBackStack(null);
         transaction.commit();
     }
-
 }
