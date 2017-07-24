@@ -27,10 +27,10 @@ public class PersonalCenterActivity extends AppCompatActivity implements
                 .setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC
                 );
         /*TODO: 这里是底部导航栏的背景，需要在res/color.xml对每个颜色的ID以及图片进行设置*/
-        bottomNavigationBar.addItem(new BottomNavigationItem(R.mipmap.ic_message, "我的课程").setActiveColorResource(R.color.colorPrimary))
+        bottomNavigationBar.addItem(new BottomNavigationItem(R.mipmap.ic_table, "我的课程").setActiveColorResource(R.color.colorPrimary))
                 .addItem(new BottomNavigationItem(R.mipmap.ic_talk, "我的作业").setActiveColorResource(R.color.colorPrimary))
-                .addItem(new BottomNavigationItem(R.mipmap.ic_person, "作业提醒").setActiveColorResource(R.color.colorPrimary))
-                .addItem(new BottomNavigationItem(R.mipmap.ic_download, "联系我们").setActiveColorResource(R.color.colorPrimary))
+                .addItem(new BottomNavigationItem(R.mipmap.ic_clock, "作业提醒").setActiveColorResource(R.color.colorPrimary))
+                .addItem(new BottomNavigationItem(R.mipmap.ic_person, "联系我们").setActiveColorResource(R.color.colorPrimary))
                 .setFirstSelectedPosition(0)
                 .initialise();
 
