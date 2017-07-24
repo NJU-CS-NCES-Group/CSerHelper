@@ -57,14 +57,9 @@ public class ContactUsFragment extends Fragment implements View.OnClickListener{
             {
                 PersonalCenterActivity pca=(PersonalCenterActivity)getActivity();
                 FragmentManager fm=pca.getSupportFragmentManager();
-                FragmentTransaction ft=fm.beginTransaction();
-                Fragment fragment=pca.getFragments().get(4);
-                if (fragment.isAdded()) {
-                    ft.replace(R.id.layFrame, fragment);
-                } else {
-                    ft.add(R.id.layFrame, fragment);
-                }
-                ft.commit();
+                PersonalInformationFragment personalInformationFragment=new PersonalInformationFragment();
+                personalInformationFragment.show(fm,"dialog");
+                break;
             }
         }
     }

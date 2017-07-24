@@ -4,7 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.TextViewCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,13 +19,13 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class PersonalInformationFragment extends Fragment implements View.OnClickListener{
+public class PersonalInformationFragment extends DialogFragment implements View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private boolean isEdit=false;
     TextView tvName,tvNumber;
     EditText etPhone,etEmail;
-    Button btLeft,btRight;
+    Button btLeft,btRight,btclose;
 
     public PersonalInformationFragment() {
         // Required empty public constructor
@@ -53,11 +56,14 @@ public class PersonalInformationFragment extends Fragment implements View.OnClic
         etEmail=(EditText)view.findViewById(R.id.studentEmail);
         btLeft=(Button)view.findViewById(R.id.leftButton);
         btRight=(Button)view.findViewById(R.id.rightButton);
+        btclose=(Button)view.findViewById(R.id.closeButton);
         etEmail.setEnabled(false);
         etPhone.setEnabled(false);
         btLeft.setOnClickListener(this);
         btRight.setOnClickListener(this);
+        btclose.setOnClickListener(this);
         setData(getStudentInformation());
+        //setCancelable(false);
         return view;
     }
     //TODO:重写此函数实现数据传入显示
@@ -95,6 +101,9 @@ public class PersonalInformationFragment extends Fragment implements View.OnClic
     public void onClick(View v) {
         int id= v.getId();
         switch(id) {
+            case R.id.closeButton:
+                dismiss();
+                break;
             case R.id.leftButton: {
                 if(isEdit==false) {
                     btLeft.setText("取消");

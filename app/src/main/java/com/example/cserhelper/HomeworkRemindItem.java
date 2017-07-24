@@ -2,6 +2,7 @@ package com.example.cserhelper;
 
 
 import java.text.DateFormat;
+import java.util.Date;
 
 /**
  * Created by lightning on 2017/7/20.
@@ -10,11 +11,11 @@ import java.text.DateFormat;
 public class HomeworkRemindItem {
     private String CourseName;
     private String HomeworkName;
-    private long RemindTime;   //以分钟数记录，精确到分钟
-    private long SubmitTime;   //以秒数记录，精确到秒
+    private Date RemindTime;   //以分钟数记录，精确到分钟
+    private Date SubmitTime;   //以秒数记录，精确到秒
     private boolean Enable;
 
-    public HomeworkRemindItem(String courseName, String homeworkName, long remindTime, long submitTime, boolean enable) {
+    public HomeworkRemindItem(String courseName, String homeworkName, Date remindTime, Date submitTime, boolean enable) {
         CourseName = courseName;
         HomeworkName = homeworkName;
         RemindTime = remindTime;
@@ -24,12 +25,12 @@ public class HomeworkRemindItem {
 
     public String getFormatRemindTime()
     {
-        return (String) android.text.format.DateFormat.format("mm-dd hh:mm",getRemindTime());
+        return (String) android.text.format.DateFormat.format("MM-dd HH:mm",getRemindTime());
     }
 
     public String getFormatSubmitTime()
     {
-        return (String) android.text.format.DateFormat.format("mm-dd hh:mm",getRemindTime());
+        return (String) android.text.format.DateFormat.format("MM-dd HH:mm",getRemindTime());
     }
 
     public String getCourseName() {
@@ -40,11 +41,11 @@ public class HomeworkRemindItem {
         return HomeworkName;
     }
 
-    public long getRemindTime() {
+    public Date getRemindTime() {
         return RemindTime;
     }
 
-    public long getSubmitTime() {
+    public Date getSubmitTime() {
         return SubmitTime;
     }
 
@@ -60,11 +61,11 @@ public class HomeworkRemindItem {
         HomeworkName = homeworkName;
     }
 
-    public void setRemindTime(long remindTime) {
+    public void setRemindTime(Date remindTime) {
         RemindTime = remindTime;
     }
 
-    public void setSubmitTime(long submitTime) {
+    public void setSubmitTime(Date submitTime) {
         SubmitTime = submitTime;
     }
 

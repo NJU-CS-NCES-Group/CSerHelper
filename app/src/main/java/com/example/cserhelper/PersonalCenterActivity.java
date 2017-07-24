@@ -5,6 +5,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
@@ -12,7 +14,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import java.util.ArrayList;
 
 public class PersonalCenterActivity extends AppCompatActivity implements
-        BottomNavigationBar.OnTabSelectedListener
+        BottomNavigationBar.OnTabSelectedListener,View.OnClickListener
 {
     private ArrayList<Fragment> fragments;
     @Override
@@ -87,4 +89,10 @@ public class PersonalCenterActivity extends AppCompatActivity implements
 
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+
+        }
+    }
 }
