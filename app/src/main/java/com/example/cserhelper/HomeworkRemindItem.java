@@ -9,6 +9,7 @@ import java.util.Date;
  */
 
 public class HomeworkRemindItem {
+    private long ID;
     private String CourseName;
     private String HomeworkName;
     private Date RemindTime;   //以分钟数记录，精确到分钟
@@ -71,5 +72,13 @@ public class HomeworkRemindItem {
 
     public void setEnable(boolean enable) {
         Enable = enable;
+    }
+
+    public long getID() {
+        return ID;
+    }
+
+    public void setID(long ID) {
+        this.ID = ID;
     }
 }
