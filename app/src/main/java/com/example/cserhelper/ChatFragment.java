@@ -49,10 +49,10 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        data=new ArrayList<String>();
-        for(int i=0;i<15;i++)
+        data = new ArrayList<String>();
+        for(int i = 0; i < 15; i++)
         {
-            data.add("ceshi"+i);
+            data.add("ceshi" + i);
         }
 
         //replaceFragment(new ChatFragment());
@@ -71,7 +71,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
         chatButton.setOnClickListener(this);
         //replaceFragment(new ChatFragment());
 
-        adapter=new ArrayAdapter<String>(this.getActivity(),android.R.layout.simple_list_item_1,data);
+        adapter = new ArrayAdapter<String>(this.getActivity(),android.R.layout.simple_list_item_1,data);
         listView.setAdapter(adapter);
         SwipeMenuCreator creator = new SwipeMenuCreator() {
 

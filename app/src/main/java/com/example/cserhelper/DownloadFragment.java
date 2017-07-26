@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,16 +26,16 @@ import java.util.Map;
 public class DownloadFragment extends Fragment implements View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    //private static final String ARG_PARAM1 = "param1";
+    //private static final String ARG_PARAM2 = "param2";
 
     /*add by Sunny*/
     private ListView listView;
     private ArrayAdapter<String> adapter;
-    private List<String> dataList = new ArrayList<>();
+    public List<DownloadMaterial> dataList = new ArrayList<>();
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
+    //private String mParam1;
     public DownloadFragment() {
         // Required empty public constructor
     }
@@ -48,9 +50,9 @@ public class DownloadFragment extends Fragment implements View.OnClickListener{
     // TODO: Rename and change types and number of parameters
     public static DownloadFragment newInstance(String param1) {
         DownloadFragment fragment = new DownloadFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        fragment.setArguments(args);
+        //Bundle args = new Bundle();
+        //args.putString(ARG_PARAM1, param1);
+        //fragment.setArguments(args);
         return fragment;
     }
 
@@ -58,10 +60,15 @@ public class DownloadFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-        }
+        initDownloadMaterial();
+    }
 
+    private void initDownloadMaterial() {
+        dataList.clear();
+        for (int i = 0; i < 5; i++) {
+            DownloadMaterial material_item = new DownloadMaterial("Reference Book" + i + "", i * 1000 + "");
+            dataList.add(material_item);
+        }
     }
 
 
@@ -71,11 +78,22 @@ public class DownloadFragment extends Fragment implements View.OnClickListener{
         // Inflate the layout for this fragment
         /*add by Sunny*/
         View view = inflater.inflate(R.layout.fragment_download, container, false);
+        DownloadMaterialAdapter adapter = new DownloadMaterialAdapter(this.getContext(), R.layout.download_material_item, dataList);
         listView = (ListView) view.findViewById(R.id.list_view);
-        adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, dataList);
         listView.setAdapter(adapter);
-        Button button=(Button)view.findViewById(R.id.homeButton);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                DownloadMaterial downloadmaterial = dataList.get(position);
+                Toast.makeText(getActivity(), downloadmaterial.getName(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        Button button = (Button) view.findViewById(R.id.homeButton);
         button.setOnClickListener(this);
+        Button timeDownloadButton = (Button) view.findViewById(R.id.time_download_button);
+        timeDownloadButton.setOnClickListener(this);
         return view;
         //return inflater.inflate(R.layout.fragment_download, container, false);
     }
@@ -86,6 +104,17 @@ public class DownloadFragment extends Fragment implements View.OnClickListener{
         switch (id){
             case R.id.homeButton:
                 startActivity(new Intent(this.getActivity(),PersonalCenterActivity.class));
+                break;
+            case R.id.time_download_button:
+                replaceFragment(new DownloadbyTimeFragment());
+                break;
         }
+    }
+
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.fragment_download, fragment);
+        transaction.commit();
     }
 }
