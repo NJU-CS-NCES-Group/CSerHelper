@@ -8,56 +8,42 @@ import java.util.List;
  */
 
 public class MyHomeworkItem {
-    private List<String> Courses;
-    private List<List<String>> Homework;
-    private List<List<Date>> HomeworkSubmitTime;
-    private List<List<String>> HomeworkInformation;
+    String name;
+    String information;
+    Date submitTime;
 
-    public void setHomeworkSubmitTime(List<List<Date>> homeworkSubmitTime) {
-        HomeworkSubmitTime = homeworkSubmitTime;
+    public MyHomeworkItem(String name, Date submitTime, String information) {
+        this.name = name;
+        this.information = information;
+        this.submitTime = submitTime;
     }
 
-    public List<List<Date>> getHomeworkSubmitTime() {
-
-        return HomeworkSubmitTime;
+    public MyHomeworkItem(String name, Date submitTime) {
+        this.name = name;
+        this.submitTime = submitTime;
     }
 
-    public MyHomeworkItem(List<String> courses, List<List<String>> homework, List<List<Date>> homeworkSubmitTime) {
-        Courses = courses;
-        Homework = homework;
-        HomeworkSubmitTime = homeworkSubmitTime;
+    public String getName() {
+        return name;
     }
 
-    public MyHomeworkItem(List<String> courses, List<List<String>> homework, List<List<Date>> homeworkSubmitTime, List<List<String>> homeworkInformation) {
-        Courses = courses;
-        Homework = homework;
-        HomeworkSubmitTime = homeworkSubmitTime;
-        HomeworkInformation = homeworkInformation;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setCourses(List<String> courses) {
-
-        Courses = courses;
+    public String getInformation() {
+        return information;
     }
 
-    public void setHomework(List<List<String>> homework) {
-        Homework = homework;
+    public void setInformation(String information) {
+        this.information = information;
     }
 
-    public void setHomeworkInformation(List<List<String>> homeworkInformation) {
-        HomeworkInformation = homeworkInformation;
+    public Date getSubmitTime() {
+        return submitTime;
     }
 
-    public List<String> getCourses() {
-
-        return Courses;
-    }
-
-    public List<List<String>> getHomework() {
-        return Homework;
-    }
-
-    public List<List<String>> getHomeworkInformation() {
-        return HomeworkInformation;
+    public void setSubmitTime(Date submitTime) {
+        this.submitTime = submitTime;
     }
 }

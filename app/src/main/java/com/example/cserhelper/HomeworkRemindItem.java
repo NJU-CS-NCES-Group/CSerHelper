@@ -12,8 +12,8 @@ public class HomeworkRemindItem {
     private long ID;
     private String CourseName;
     private String HomeworkName;
-    private Date RemindTime;   //以分钟数记录，精确到分钟
-    private Date SubmitTime;   //以秒数记录，精确到秒
+    private Date RemindTime;
+    private Date SubmitTime;
     private boolean Enable;
 
     public HomeworkRemindItem(String courseName, String homeworkName, Date remindTime, Date submitTime, boolean enable) {
