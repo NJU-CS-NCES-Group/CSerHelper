@@ -44,7 +44,7 @@ public class MyHomeworkFragment extends Fragment implements View.OnClickListener
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_my_homework, container, false);
+        View view = inflater.inflate(R.layout.fragment_my_homework, container, false);
         Button button=(Button)view.findViewById(R.id.personalButton);
         button.setOnClickListener(this);
         return view;

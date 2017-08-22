@@ -28,7 +28,7 @@ public class MainFuncActivity extends AppCompatActivity implements
         bottomNavigationBar.addItem(new BottomNavigationItem(R.mipmap.ic_message, "消息提示").setActiveColorResource(R.color.colorPrimary))
                 .addItem(new BottomNavigationItem(R.mipmap.ic_talk, "讨论交流").setActiveColorResource(R.color.colorPrimary))
                 .addItem(new BottomNavigationItem(R.mipmap.ic_location, "课堂考勤").setActiveColorResource(R.color.colorPrimary))
-                .addItem(new BottomNavigationItem(R.mipmap.ic_download, "上传下载").setActiveColorResource(R.color.colorPrimary))
+                .addItem(new BottomNavigationItem(R.mipmap.ic_download, "资料下载").setActiveColorResource(R.color.colorPrimary))
                 .setFirstSelectedPosition(0)
                 .initialise();
 
@@ -49,7 +49,7 @@ public class MainFuncActivity extends AppCompatActivity implements
         fragments.add(MessageFragment.newInstance("消息提示"));
         fragments.add(ChatFragment.newInstance("讨论交流"));
         fragments.add(ClasscheckFragment.newInstance("课堂考勤"));
-        fragments.add(DownloadFragment.newInstance("上传下载"));
+        fragments.add(DownloadFragment.newInstance("资料下载"));
         return fragments;
     }
     @Override
