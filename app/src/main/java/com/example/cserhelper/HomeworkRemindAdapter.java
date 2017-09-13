@@ -2,12 +2,14 @@ package com.example.cserhelper;
 
 import android.content.Context;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baoyz.swipemenulistview.BaseSwipListAdapter;
 
@@ -20,11 +22,15 @@ import java.util.List;
 
 public class HomeworkRemindAdapter extends BaseSwipListAdapter {
     private List<HomeworkRemindItem> list;
+    private HomeworkRemindDBManager dbManeger;
     LayoutInflater inflater;
+    Context context;
 
-    public HomeworkRemindAdapter(List<HomeworkRemindItem> list,Context context) {
+    public HomeworkRemindAdapter(List<HomeworkRemindItem> list,HomeworkRemindDBManager db,Context context) {
         this.list = list;
         inflater=LayoutInflater.from(context);
+        this.context=context;
+        dbManeger=db;
     }
 
     @Override
@@ -46,7 +52,7 @@ public class HomeworkRemindAdapter extends BaseSwipListAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
         if(convertView==null)
         {
@@ -65,8 +71,21 @@ public class HomeworkRemindAdapter extends BaseSwipListAdapter {
         viewHolder.tvRemindTime.setText(list.get(position).getFormatRemindTime());
         viewHolder.tvSubmitTime.setText(list.get(position).getFormatSubmitTime());
         viewHolder.enable.setChecked(list.get(position).isEnable());
+        //viewHolder.enable.setTag(position);
+        viewHolder.enable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HomeworkRemindItem temp=list.get(position);
+                Toast.makeText(context,"clicked"+position+",it is "+temp.isEnable(), Toast.LENGTH_SHORT).show();
+                dbManeger.changeItem(temp.getID(),!temp.isEnable());
+                temp.setEnable(!temp.isEnable());
+                list.set(position,temp);
+            }
+        });
         return convertView;
     }
+
+
     public static class ViewHolder{
         public TextView tvCourseName;
         public TextView tvHomeworkName;

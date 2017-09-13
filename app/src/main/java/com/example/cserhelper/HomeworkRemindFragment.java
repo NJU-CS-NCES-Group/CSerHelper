@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,11 +22,14 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
+
+import org.w3c.dom.ls.LSException;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,17 +40,17 @@ import java.util.List;
 import javax.crypto.AEADBadTagException;
 import javax.sql.StatementEvent;
 
-public class HomeworkRemindFragment extends Fragment implements View.OnClickListener
+public class HomeworkRemindFragment extends Fragment implements View.OnClickListener,AdapterView.OnItemClickListener
 {
     private SwipeMenuListView listView;
     private HomeworkRemindAdapter adapter;
-    private List<HomeworkRemindItem> list;
-    private ArrayList<String> homeworkList;
-    private ArrayList<String> courseList;
-    private MyHomeworkItem myHomeworkItem;
-    private List<Date> homeworkTimeList;
+    private List<MyCourseItem> courseList;
+    private MyHomeworkItem focusHomework;
+    private List<MyHomeworkItem> focusHomeworkList;
+    private List<HomeworkRemindItem> homeworkRemindItemList;
     private DatePicker dp;
     private TimePicker tp;
+    private HomeworkRemindDBManager dbManager;
 
     public HomeworkRemindFragment() {
     }
@@ -72,7 +76,6 @@ public class HomeworkRemindFragment extends Fragment implements View.OnClickList
     }
 
     public void saveLocalList(){
-
     }
 
     @Override
@@ -88,11 +91,12 @@ public class HomeworkRemindFragment extends Fragment implements View.OnClickList
         Button button=(Button)view.findViewById(R.id.personalButton);
         button.setOnClickListener(this);
         Button plusButton=(Button)view.findViewById(R.id.addItem);
+        dbManager=new HomeworkRemindDBManager(this.getContext());
         plusButton.setOnClickListener(this);
         listView=(SwipeMenuListView) view.findViewById(R.id.listView);
         listView.addHeaderView(new ViewStub(this.getActivity()));
-        list=getList();
-        adapter=new HomeworkRemindAdapter(list,this.getActivity());
+        homeworkRemindItemList = getList();
+        adapter = new HomeworkRemindAdapter(homeworkRemindItemList, dbManager, this.getActivity());
         listView.setAdapter(adapter);
         SwipeMenuCreator creator = new SwipeMenuCreator() {
 
@@ -126,9 +130,10 @@ public class HomeworkRemindFragment extends Fragment implements View.OnClickList
                 {
                     case 0:
                         //删除该item
-                        list.remove(position);
+                        dbManager.deleteItem(homeworkRemindItemList.get(position).getID());
+                        homeworkRemindItemList.remove(position);
                         int t=listView.getFirstVisiblePosition();
-                        if(t!=list.size()-1) t++;
+                        if (t != homeworkRemindItemList.size() - 1) t++;
                         listView.setAdapter(adapter);
                         listView.setSelection(t);
                         break;
@@ -136,53 +141,31 @@ public class HomeworkRemindFragment extends Fragment implements View.OnClickList
                 return false;
             }
         });
+        listView.setOnItemClickListener(this);
         return view;
     }
 
     //TODO:完成从本地读取数据
     public List<HomeworkRemindItem> getList(){
-        ArrayList<HomeworkRemindItem> list=new ArrayList<HomeworkRemindItem>();
-        list.add(new HomeworkRemindItem("数理逻辑","作业一",new Date(234567),new Date(234567),true));
-        list.add(new HomeworkRemindItem("数理逻辑","作业一",new Date(234567),new Date(234567),true));
-        list.add(new HomeworkRemindItem("数理逻辑","作业一",new Date(234567),new Date(234567),true));
-        return list;
+        return dbManager.getALL();
     }
 
     //TODO:获取登录账号的全部课程和作业信息，此处可不获取作业具体描述，只要名称,具体数据结构参看 @MyHomeworkItem
-    public MyHomeworkItem getHomeworkList() {
-        List<String> courses=new ArrayList<String>();
-        List<List<String>> homework=new ArrayList<List<String>>();
-        List<List<Date>> submitTime=new ArrayList<List<Date>>();
-        courses.add("操作系统");
-        courses.add("数理逻辑");
-        courses.add("算法");
-        List<String> homeworkItem1=new ArrayList<String>();
-        homeworkItem1.add("书面作业");
-        homeworkItem1.add("oslab");
-        List<String> homeworkItem2=new ArrayList<String>();
-        homeworkItem2.add("课后作业");
-        homeworkItem2.add("课堂作业");
-        List<String> homeworkItem3=new ArrayList<String>();
-        homeworkItem3.add("problemset_1");
-        homeworkItem3.add("problemset_2");
-        homework.add(homeworkItem1);
-        homework.add(homeworkItem2);
-        homework.add(homeworkItem3);
-
-        List<Date> submitTime1=new ArrayList<Date>();
-        submitTime1.add(String2Date("2017-08-01 21:00"));
-        submitTime1.add(String2Date("2017-08-01 21:00"));
-        List<Date> submitTime2=new ArrayList<Date>();
-        submitTime2.add(String2Date("2017-08-01 21:00"));
-        submitTime2.add(String2Date("2017-08-01 21:00"));
-        List<Date> submitTime3=new ArrayList<Date>();
-        submitTime3.add(String2Date("2017-08-01 21:00"));
-        submitTime3.add(String2Date("2017-08-01 21:00"));
-        submitTime.add(submitTime1);
-        submitTime.add(submitTime2);
-        submitTime.add(submitTime3);
-        MyHomeworkItem myHomeworkItem=new MyHomeworkItem(courses,homework,submitTime);
-        return myHomeworkItem;
+    public List<MyCourseItem> getHomeworkList() {
+        List<MyHomeworkItem> homeworkItems1 = new ArrayList<MyHomeworkItem>();
+        List<MyHomeworkItem> homeworkItems2 = new ArrayList<MyHomeworkItem>();
+        List<MyHomeworkItem> homeworkItems3 = new ArrayList<MyHomeworkItem>();
+        homeworkItems1.add(new MyHomeworkItem("书面作业", String2Date("2017-08-10 21:00")));
+        homeworkItems1.add(new MyHomeworkItem("OSLAB", String2Date("2017-08-10 21:00")));
+        homeworkItems2.add(new MyHomeworkItem("课堂作业", String2Date("2017-08-10 21:00")));
+        homeworkItems2.add(new MyHomeworkItem("课后作业", String2Date("2017-08-10 21:00")));
+        homeworkItems3.add(new MyHomeworkItem("problemset1", String2Date("2017-08-10 21:00")));
+        homeworkItems3.add(new MyHomeworkItem("problemset2", String2Date("2017-08-10 21:00")));
+        List<MyCourseItem> ret = new ArrayList<MyCourseItem>();
+        ret.add(new MyCourseItem("操作系统", homeworkItems1));
+        ret.add(new MyCourseItem("数理逻辑", homeworkItems2));
+        ret.add(new MyCourseItem("算法", homeworkItems3));
+        return ret;
     }
 
     @Override
@@ -195,6 +178,7 @@ public class HomeworkRemindFragment extends Fragment implements View.OnClickList
                 FragmentManager fm=pca.getSupportFragmentManager();
                 PersonalInformationFragment personalInformationFragment=new PersonalInformationFragment();
                 personalInformationFragment.show(fm,"dialog");
+
                 //personalInformationFragment.dismiss();
                 break;
             }
@@ -206,13 +190,13 @@ public class HomeworkRemindFragment extends Fragment implements View.OnClickList
                 final Spinner spHomeworkName=(Spinner) view.findViewById(R.id.homeworkName);
                 tp=(TimePicker) view.findViewById(R.id.timePick);
                 dp=(DatePicker) view.findViewById(R.id.datePick);
-                myHomeworkItem=getHomeworkList();
-                courseList=(ArrayList<String>) myHomeworkItem.getCourses();
-                homeworkList=new ArrayList<String>();
-                homeworkList.addAll((ArrayList<String>) myHomeworkItem.getHomework().get(0));
-                homeworkTimeList=myHomeworkItem.getHomeworkSubmitTime().get(0);
-                ArrayAdapter<String> courseAdapter=new ArrayAdapter<String>(this.getActivity(),android.R.layout.simple_spinner_item, courseList);
-                final ArrayAdapter<String> homeworkAdapter=new ArrayAdapter<String>(this.getActivity(),android.R.layout.simple_selectable_list_item,homeworkList);
+                courseList = getHomeworkList();
+                List<String> courseNameList = new ArrayList<String>();
+                for (int i = 0; i < courseList.size(); i++)
+                    courseNameList.add(courseList.get(i).getName());
+                ArrayAdapter<String> courseAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, courseNameList);
+                final List<String> homeworkNameList = courseList.get(0).getHomeworkNameList();
+                final ArrayAdapter<String> homeworkAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_selectable_list_item, homeworkNameList);
                 spCourseName.setAdapter(courseAdapter);
                 spHomeworkName.setAdapter(homeworkAdapter);
                 //禁止弹出键盘
@@ -222,9 +206,9 @@ public class HomeworkRemindFragment extends Fragment implements View.OnClickList
                 spCourseName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        homeworkList.clear();
-                        homeworkList.addAll((ArrayList<String>) myHomeworkItem.getHomework().get(position));
-                        homeworkTimeList= myHomeworkItem.getHomeworkSubmitTime().get(position);
+                        homeworkNameList.clear();
+                        homeworkNameList.addAll((ArrayList<String>) courseList.get(position).getHomeworkNameList());
+                        focusHomeworkList = courseList.get(position).getHomeworkList();
                         homeworkAdapter.notifyDataSetChanged();
                     }
 
@@ -239,7 +223,8 @@ public class HomeworkRemindFragment extends Fragment implements View.OnClickList
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         Calendar c=Calendar.getInstance();
                         dp.setMinDate(c.getTimeInMillis());
-                        dp.setMaxDate(homeworkTimeList.get(position).getTime());
+                        focusHomework = focusHomeworkList.get(position);
+                        dp.setMaxDate(focusHomework.getSubmitTime().getTime());
                     }
 
                     @Override
@@ -256,13 +241,17 @@ public class HomeworkRemindFragment extends Fragment implements View.OnClickList
                             public void onClick(DialogInterface dialog, int which) {
                                 String s;
                                 s=dp.getYear()+"-"+dp.getMonth()+"-"+dp.getDayOfMonth()+" "+tp.getCurrentHour()+":"+tp.getCurrentMinute();
-                                list.add(new HomeworkRemindItem(
-                                        (String)spCourseName.getSelectedItem(),
+                                HomeworkRemindItem temp=new HomeworkRemindItem(
+                                        (String) spCourseName.getSelectedItem(),
                                         (String) spHomeworkName.getSelectedItem(),
                                         String2Date(s),
-                                        homeworkTimeList.get(spHomeworkName.getSelectedItemPosition()),
+                                        focusHomework.getSubmitTime(),
                                         true
-                                ));
+                                );
+                                long tempId = dbManager.addItem(temp);
+                                temp.setID(tempId);
+                                homeworkRemindItemList.add(temp);
+                                //Toast.makeText(getContext(),"ID is "+a, Toast.LENGTH_SHORT).show();
                                 listView.setAdapter(adapter);
                             }
                         })
@@ -272,5 +261,10 @@ public class HomeworkRemindFragment extends Fragment implements View.OnClickList
                 ((ViewGroup) (((ViewGroup) dp.getChildAt(0)).getChildAt(0)))
                         .getChildAt(2).setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
     }
 }
