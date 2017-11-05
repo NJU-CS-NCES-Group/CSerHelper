@@ -19,22 +19,11 @@ public class MyCourseItem {
     String name;
     int weekMin;
     int weekMax;
-    int oddOrEven;     //0表示不限制，1表示单周，2表示双周
-    List<Date> courseTime;
-    List<String> classroom;
+    List<OneCourseInformation> courseInformations;
     List<String> teacherName;
     List<MyHomeworkItem> homeworkList;
 
-    public MyCourseItem(String name, int weekMin, int weekMax, int oddOrEven, List<Date> courseTime, List<String> classroom, List<String> teacherName, List<MyHomeworkItem> homeworkList) {
-        this.name = name;
-        this.weekMin = weekMin;
-        this.weekMax = weekMax;
-        this.oddOrEven = oddOrEven;
-        this.courseTime = courseTime;
-        this.classroom = classroom;
-        this.teacherName = teacherName;
-        this.homeworkList = homeworkList;
-    }
+
 
     public List<String> getHomeworkNameList() {
         List<String> ret = new ArrayList<String>();
@@ -46,6 +35,33 @@ public class MyCourseItem {
 
     public String getName() {
         return name;
+    }
+
+    public List<OneCourseInformation> getCourseInformations() {
+        return courseInformations;
+    }
+
+    public void setCourseInformations(List<OneCourseInformation> courseInformations) {
+        this.courseInformations = courseInformations;
+    }
+
+    public MyCourseItem(String name, int weekMin, int weekMax, List<OneCourseInformation> courseInformations, List<String> teacherName, List<MyHomeworkItem> homeworkList) {
+
+        this.name = name;
+        this.weekMin = weekMin;
+        this.weekMax = weekMax;
+        this.courseInformations = courseInformations;
+        this.teacherName = teacherName;
+        this.homeworkList = homeworkList;
+    }
+
+    public MyCourseItem(String name, int weekMin, int weekMax, List<OneCourseInformation> courseInformations, List<String> teacherName) {
+
+        this.name = name;
+        this.weekMin = weekMin;
+        this.weekMax = weekMax;
+        this.courseInformations = courseInformations;
+        this.teacherName = teacherName;
     }
 
     public void setName(String name) {
@@ -66,30 +82,6 @@ public class MyCourseItem {
 
     public void setWeekMax(int weekMax) {
         this.weekMax = weekMax;
-    }
-
-    public int getOddOrEven() {
-        return oddOrEven;
-    }
-
-    public void setOddOrEven(int oddOrEven) {
-        this.oddOrEven = oddOrEven;
-    }
-
-    public List<Date> getCourseTime() {
-        return courseTime;
-    }
-
-    public void setCourseTime(List<Date> courseTime) {
-        this.courseTime = courseTime;
-    }
-
-    public List<String> getClassroom() {
-        return classroom;
-    }
-
-    public void setClassroom(List<String> classroom) {
-        this.classroom = classroom;
     }
 
     public List<String> getTeacherName() {

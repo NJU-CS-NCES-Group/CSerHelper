@@ -40,7 +40,7 @@ public class MainFuncActivity extends AppCompatActivity implements
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
         /*这里是底部导航栏的默认Fragment*/
-        transaction.replace(R.id.layFrame,MessageFragment.newInstance("消息提示"));
+        transaction.replace(R.id.layFrame,fragments.get(0));
         transaction.commit();
     }
     private ArrayList<Fragment> getFragments() {

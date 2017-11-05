@@ -10,15 +10,48 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ExpandableListView;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 
 public class MyHomeworkFragment extends Fragment implements View.OnClickListener{
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
+    List<MyHomeworkItem> comingHomework;
+    List<MyHomeworkItem> finishedHomework;
+    MyHomeworkComingAdapter comingAdapter;
+    MyHomeworkFinishedAdapter finishedAdapter;
+    ExpandableListView listView;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
+    //格式为"MM-dd HH:mm"
+    public Date String2Date(String s){
+        Date date;
+        try {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd HH:mm");
+            date = simpleDateFormat.parse(s);
+        }
+        catch (Exception e)
+        {
+            date=null;
+        }
+        return date;
+    }
+    //TODO:完成数据传输
+    private List<MyHomeworkItem> getComingHomeworkList(){
+        List<MyHomeworkItem> ret = new ArrayList<MyHomeworkItem>();
+        ret.add(new MyHomeworkItem("数据结构-作业一",String2Date("11-06 23:59"),"一堆解释解释解释解释解释解释解释解释解释解释解释解释解释"));
+        ret.add(new MyHomeworkItem("数据结构-作业一",String2Date("11-06 23:59"),"一堆解释解释解释解释解释解释解释解释解释解释解释解释解释"));
+        return ret;
+    }
+
+    private List<MyHomeworkItem> getFinishedHomeworkList(){
+        List<MyHomeworkItem> ret = new ArrayList<MyHomeworkItem>();
+        ret.add(new MyHomeworkItem("数据结构-作业一",true,"一堆解释解释解释解释解释解释解释解释解释解释解释解释解释"));
+        ret.add(new MyHomeworkItem("数据结构-作业一",false,"一堆解释解释解释解释解释解释解释解释解释解释解释解释解释"));
+        return ret;
+    }
 
     public MyHomeworkFragment() {
         // Required empty public constructor
@@ -27,7 +60,6 @@ public class MyHomeworkFragment extends Fragment implements View.OnClickListener
     public static MyHomeworkFragment newInstance(String param1) {
         MyHomeworkFragment fragment = new MyHomeworkFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
         fragment.setArguments(args);
         return fragment;
     }
@@ -35,10 +67,9 @@ public class MyHomeworkFragment extends Fragment implements View.OnClickListener
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-        }
     }
+
+    //TODO：完成判断是否超时
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,6 +78,16 @@ public class MyHomeworkFragment extends Fragment implements View.OnClickListener
         View view = inflater.inflate(R.layout.fragment_my_homework, container, false);
         Button button=(Button)view.findViewById(R.id.personalButton);
         button.setOnClickListener(this);
+        Button comingButton=(Button)view.findViewById(R.id.comingButton);
+        Button finishedButton = (Button)view.findViewById(R.id.deadButton);
+        comingButton.setOnClickListener(this);
+        finishedButton.setOnClickListener(this);
+        listView= (ExpandableListView)view.findViewById(R.id.homeworklistView);
+        comingHomework=getComingHomeworkList();
+        comingAdapter = new MyHomeworkComingAdapter(comingHomework,this.getActivity());
+        finishedHomework=getFinishedHomeworkList();
+        finishedAdapter= new MyHomeworkFinishedAdapter(finishedHomework,this.getActivity());
+        //listView.setAdapter(comingAdapter);
         return view;
     }
 
@@ -60,6 +101,13 @@ public class MyHomeworkFragment extends Fragment implements View.OnClickListener
                 PersonalInformationFragment personalInformationFragment=new PersonalInformationFragment();
                 personalInformationFragment.show(fm,"dialog");
                 break;
+            case R.id.comingButton:
+                listView.setAdapter(comingAdapter);
+                break;
+            case R.id.deadButton:
+                listView.setAdapter(finishedAdapter);
+                break;
         }
+
     }
 }
